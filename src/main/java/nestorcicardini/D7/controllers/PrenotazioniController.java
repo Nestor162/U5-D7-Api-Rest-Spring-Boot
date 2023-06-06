@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/info")
 public class PrenotazioniController {
 
-	@GetMapping("/")
+	@GetMapping(" ")
 	public String getWelcomeMsg() {
 		return "Welcome to GestionePrenotazioni" + System.lineSeparator()
 				+ "Go to /eng to get rules in englis" + System.lineSeparator()
