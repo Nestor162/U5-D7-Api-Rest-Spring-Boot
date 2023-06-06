@@ -1,8 +1,11 @@
 package nestorcicardini.D7.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import nestorcicardini.D7.exceptions.UnknownLanguageException;
 
 @RestController
 @RequestMapping("/info")
@@ -42,6 +45,11 @@ public class PrenotazioniController {
 				+ "4. Se una postazione è disponibile, fornisci il tuo username, nome completo ed email per effettuare la prenotazione."
 				+ System.lineSeparator()
 				+ "5. Ogni utente può prenotare solo una postazione per una data specifica.";
+	}
+
+	@GetMapping("/{lang}")
+	public String handleUnknownLanguage(@PathVariable String lang) {
+		throw new UnknownLanguageException(lang);
 	}
 
 }
