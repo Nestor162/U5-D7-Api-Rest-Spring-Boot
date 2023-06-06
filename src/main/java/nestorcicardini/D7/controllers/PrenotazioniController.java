@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -44,6 +46,24 @@ public class PrenotazioniController {
 	@GetMapping("/{PrenotazioneId}")
 	public Prenotazione findById(@PathVariable String PrenotazioneId) {
 		return gestionePrenotazioni.findById(PrenotazioneId)
+				.orElseThrow(() -> new NotFoundException(PrenotazioneId));
+	}
+
+	// UPDATE (PUT) - http://localhost:3001/prenotazioni/:PrenotazioneId + req.
+	// body
+
+	@PutMapping("/{PrenotazioneId}")
+	public Prenotazione findByIdAndUpdate(@PathVariable String PrenotazioneId,
+			@RequestBody Prenotazione body) {
+		return gestionePrenotazioni.findByIdAndUpdate(PrenotazioneId, body)
+				.orElseThrow(() -> new NotFoundException(PrenotazioneId));
+	}
+
+	// 5. - DELETE http://localhost:3001/prenotazioni/:PrenotazioneId
+	@DeleteMapping("/{PrenotazioneId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void findByIdAndDelete(@PathVariable String PrenotazioneId) {
+		gestionePrenotazioni.findByIdAndDelete(PrenotazioneId)
 				.orElseThrow(() -> new NotFoundException(PrenotazioneId));
 	}
 }
