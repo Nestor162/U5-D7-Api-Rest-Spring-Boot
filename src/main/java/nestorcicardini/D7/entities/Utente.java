@@ -1,5 +1,7 @@
 package nestorcicardini.D7.entities;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,5 +10,6 @@ import lombok.Data;
 public class Utente {
 	private String username;
 	private String email;
-	private String citta;
+	private String nomeCompleto;
+	private List<Prenotazione> listaPrenotazioniList;
 }
