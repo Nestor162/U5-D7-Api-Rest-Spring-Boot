@@ -1,5 +1,6 @@
 package nestorcicardini.D7.exceptions;
 
+@SuppressWarnings("serial")
 public class UnknownLanguageException extends RuntimeException {
 
 	public UnknownLanguageException(String lang) {
