@@ -2,6 +2,7 @@ package nestorcicardini.D7.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +22,17 @@ public class GestionePrenotazioniService {
 
 	public List<Prenotazione> getAllPrenotzioni() {
 		return this.prenotazioni;
+	}
+
+	public Optional<Prenotazione> findById(String id) {
+		Prenotazione p = null;
+		UUID uuid = UUID.fromString(id);
+		for (Prenotazione prenotazione : prenotazioni) {
+			if (prenotazione.getId().equals(uuid)) {
+				return Optional.of(prenotazione);
+			}
+		}
+		return Optional.ofNullable(p);
 	}
 
 }

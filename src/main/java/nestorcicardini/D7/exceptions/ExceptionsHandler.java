@@ -19,4 +19,11 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
 				400);
 		return new ResponseEntity<>(payload, HttpStatus.BAD_REQUEST);
 	}
+
+	@ExceptionHandler(NotFoundException.class)
+	public ResponseEntity<ErrorsPayload> handleNotFound(NotFoundException e) {
+		ErrorsPayload payload = new ErrorsPayload(e.getMessage(), new Date(),
+				404);
+		return new ResponseEntity<ErrorsPayload>(payload, HttpStatus.NOT_FOUND);
+	}
 }
