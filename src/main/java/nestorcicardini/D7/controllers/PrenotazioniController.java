@@ -1,7 +1,10 @@
 package nestorcicardini.D7.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +26,15 @@ public class PrenotazioniController {
 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED) // Status code 201
-	public Prenotazione saveUser(@RequestBody Prenotazione body) {
+	public Prenotazione savePrenotazione(@RequestBody Prenotazione body) {
 		Prenotazione prenotazioneCreata = gestionePrenotazioni
 				.salvaPrenotazione(body);
 		return prenotazioneCreata;
 	}
 
 	// READ (GET) - http://localhost:3001/prenotazioni
+	@GetMapping("")
+	public List<Prenotazione> getAllPrenotazioni() {
+		return gestionePrenotazioni.getAllPrenotzioni();
+	}
 }

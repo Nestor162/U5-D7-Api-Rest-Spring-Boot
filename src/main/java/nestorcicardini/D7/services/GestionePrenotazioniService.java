@@ -18,4 +18,9 @@ public class GestionePrenotazioniService {
 		prenotazioni.add(payload);
 		return payload;
 	}
+
+	public List<Prenotazione> getAllPrenotzioni() {
+		return this.prenotazioni;
+	}
+
 }
