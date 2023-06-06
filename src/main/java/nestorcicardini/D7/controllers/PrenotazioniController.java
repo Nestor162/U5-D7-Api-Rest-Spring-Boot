@@ -1,55 +1,33 @@
 package nestorcicardini.D7.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import nestorcicardini.D7.exceptions.UnknownLanguageException;
+import nestorcicardini.D7.entities.Prenotazione;
+import nestorcicardini.D7.services.GestionePrenotazioniService;
 
 @RestController
-@RequestMapping("/info")
+@RequestMapping("/prenotazioni")
 public class PrenotazioniController {
 
-	@GetMapping(" ")
-	public String getWelcomeMsg() {
-		return "Welcome to GestionePrenotazioni" + System.lineSeparator()
-				+ "Go to /eng to get rules in englis" + System.lineSeparator()
-				+ "Vai su /ita per ottenere le regole in italiano";
+	@Autowired
+	GestionePrenotazioniService gestionePrenotazioni;
 
+	// CRUD:
+	// CREATE (POST) - http://localhost:3001/prenotazioni
+
+	@PostMapping("")
+	@ResponseStatus(HttpStatus.CREATED) // Status code 201
+	public Prenotazione saveUser(@RequestBody Prenotazione body) {
+		Prenotazione prenotazioneCreata = gestionePrenotazioni
+				.salvaPrenotazione(body);
+		return prenotazioneCreata;
 	}
 
-	@GetMapping("/eng")
-	public String getRulesInEnglish() {
-		return "English:" + System.lineSeparator()
-				+ "1. Select the desired type of workstation (PRIVATE, OPENSPACE, MEETING_ROOM)."
-				+ System.lineSeparator()
-				+ "2. Choose the city where you want to make the reservation."
-				+ System.lineSeparator()
-				+ "3. Check the availability of workstations for the desired date."
-				+ System.lineSeparator()
-				+ "4. If a workstation is available, provide your username, full name, and email to make the reservation."
-				+ System.lineSeparator()
-				+ "5. Each user can only reserve one workstation for a specific date.";
-	}
-
-	@GetMapping("/ita")
-	public String getRulesInItalian() {
-		return "Italiano:" + System.lineSeparator()
-				+ "1. Seleziona il tipo di postazione desiderata (PRIVATA, OPENSPACE, SALA_RIUNIONI)."
-				+ System.lineSeparator()
-				+ "2. Scegli la città in cui desideri effettuare la prenotazione."
-				+ System.lineSeparator()
-				+ "3. Verifica la disponibilità delle postazioni per la data desiderata."
-				+ System.lineSeparator()
-				+ "4. Se una postazione è disponibile, fornisci il tuo username, nome completo ed email per effettuare la prenotazione."
-				+ System.lineSeparator()
-				+ "5. Ogni utente può prenotare solo una postazione per una data specifica.";
-	}
-
-	@GetMapping("/{lang}")
-	public String handleUnknownLanguage(@PathVariable String lang) {
-		throw new UnknownLanguageException(lang);
-	}
-
+	// READ (GET) - http://localhost:3001/prenotazioni
 }
